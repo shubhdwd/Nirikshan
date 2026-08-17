@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="128" height="128">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F766E"/>
+      <stop offset="100%" stop-color="#115E59"/>
+    </linearGradient>
+    <linearGradient id="shield" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14B8A6"/>
+      <stop offset="100%" stop-color="#0D9488"/>
+    </linearGradient>
+  </defs>
+  <!-- Background with rounded corners -->
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <!-- Shield outline -->
+  <path d="M256 96 L376 144 V264 C376 344 256 416 256 416 C256 416 136 344 136 264 V144 Z" fill="url(#shield)" opacity="0.25"/>
+  <!-- Inner Shield -->
+  <path d="M256 120 L356 160 V256 C356 324 256 384 256 384 C256 384 156 324 156 256 V160 Z" fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linejoin="round" stroke-linecap="round"/>
+  <!-- Checkmark -->
+  <path d="M216 256 L244 284 L304 220" fill="none" stroke="#FFFFFF" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Small radiant dot above -->
+  <circle cx="256" cy="180" r="12" fill="#5EEAD4"/>
+</svg>

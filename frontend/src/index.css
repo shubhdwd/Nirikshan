@@ -1,0 +1,354 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* -------------------------------------------------------------------------- */
+/* NIRIKSHAN DESIGN TOKENS                                                    */
+/* Colors expressed in HSL (H S% L%) so they compose with Tailwind's          */
+/* `hsl(var(--token))` pattern used by shadcn/ui.                             */
+/* -------------------------------------------------------------------------- */
+
+@layer base {
+    :root {
+        /* Base surfaces */
+        --background: 90 11% 97%; /* #F7F8F6 */
+        --foreground: 211 30% 13%; /* #17212B */
+        --card: 0 0% 100%; /* #FFFFFF */
+        --card-foreground: 211 30% 13%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 211 30% 13%;
+
+        /* Brand */
+        --primary: 174 78% 26%; /* #0F766E deep teal */
+        --primary-foreground: 160 14% 96%;
+        --primary-hover: 174 79% 21%; /* #0B5F59 */
+        --navy: 211 57% 20%; /* #16324F deep navy */
+        --soft-teal: 170 33% 93%; /* #E6F4F1 */
+
+        /* Neutrals */
+        --secondary: 150 8% 94%; /* #EEF1EF divider */
+        --secondary-foreground: 211 30% 13%;
+        --muted: 140 6% 90%; /* subtle chip bg */
+        --muted-foreground: 213 9% 57%; /* #89919C muted text */
+        --secondary-text: 215 12% 40%; /* #5B6573 */
+        --accent: 170 33% 93%; /* soft teal accent */
+        --accent-foreground: 174 78% 26%;
+        --border: 140 6% 90%; /* #E2E6E3 */
+        --input: 140 6% 90%;
+        --ring: 174 78% 26%;
+        --divider: 150 8% 94%;
+
+        /* Status */
+        --verified: 123 46% 34%; /* #2E7D32 */
+        --pending: 35 71% 42%; /* #B7791F */
+        --emergency: 0 65% 47%; /* #C62828 */
+        --info: 211 63% 40%; /* #2563A6 */
+        --resolved: 158 41% 34%; /* #357A63 */
+
+        /* Shadcn destructive alias -> emergency */
+        --destructive: 0 65% 47%;
+        --destructive-foreground: 0 0% 100%;
+
+        /* Charts */
+        --chart-1: 174 78% 26%;
+        --chart-2: 211 57% 20%;
+        --chart-3: 158 41% 34%;
+        --chart-4: 35 71% 42%;
+        --chart-5: 211 63% 40%;
+
+        --radius: 0.75rem;
+
+        /* Safe area insets (for notch / home indicator) */
+        --sat: env(safe-area-inset-top);
+        --sar: env(safe-area-inset-right);
+        --sab: env(safe-area-inset-bottom);
+        --sal: env(safe-area-inset-left);
+    }
+
+    .dark {
+        --background: 210 37% 9%; /* #0F1720 */
+        --foreground: 160 14% 96%; /* #F4F7F6 */
+        --card: 207 33% 13%; /* #17232D surface */
+        --card-foreground: 160 14% 96%;
+        --popover: 207 31% 17%;
+        --popover-foreground: 160 14% 96%;
+
+        --primary: 176 78% 36%; /* #14A39A interactive teal */
+        --primary-foreground: 210 37% 9%;
+        --primary-hover: 174 78% 26%;
+        --navy: 210 43% 17%; /* #182B3D */
+        --soft-teal: 178 53% 15%; /* #123B3A */
+
+        --secondary: 207 26% 20%; /* divider */
+        --secondary-foreground: 160 14% 96%;
+        --muted: 207 24% 22%;
+        --muted-foreground: 207 9% 56%;
+        --secondary-text: 207 12% 76%;
+        --accent: 178 53% 15%;
+        --accent-foreground: 176 78% 36%;
+        --border: 207 24% 22%; /* #2A3944 */
+        --input: 207 24% 22%;
+        --ring: 176 78% 36%;
+        --divider: 207 26% 20%;
+
+        --verified: 122 39% 49%; /* #4CAF50 */
+        --pending: 41 66% 53%; /* #D6A43A */
+        --emergency: 1 83% 63%; /* #EF5350 */
+        --info: 210 60% 60%; /* #5B9BD5 */
+        --resolved: 157 40% 50%; /* #4FAF8A */
+
+        --destructive: 1 83% 63%;
+        --destructive-foreground: 210 37% 9%;
+
+        --chart-1: 176 78% 36%;
+        --chart-2: 210 60% 60%;
+        --chart-3: 157 40% 50%;
+        --chart-4: 41 66% 53%;
+        --chart-5: 160 14% 96%;
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/* GLOBAL BASE                                                                */
+/* -------------------------------------------------------------------------- */
+
+@layer base {
+    * {
+        @apply border-border;
+        box-sizing: border-box;
+    }
+
+    html {
+        -webkit-text-size-adjust: 100%;
+        /* Use dynamic viewport height - avoids mobile browser chrome issues */
+        height: 100%;
+        scroll-behavior: smooth;
+        /* Prevent horizontal scroll on mobile */
+        overflow-x: hidden;
+    }
+
+    body {
+        margin: 0;
+        /* Ensure full dynamic viewport height */
+        min-height: 100dvh;
+        height: 100%;
+        font-family:
+            "Public Sans", ui-sans-serif, system-ui, -apple-system,
+            "Segoe UI", Helvetica, Arial, sans-serif;
+        font-feature-settings:
+            "cv02" on,
+            "cv11" on,
+            "ss01" on;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        @apply bg-background text-foreground;
+        letter-spacing: 0.005em;
+        /* Prevent horizontal scroll on mobile */
+        overflow-x: hidden;
+        /* Prevent pull-to-refresh interfering with app gestures */
+        overscroll-behavior-y: contain;
+    }
+
+    /* Remove blue flash on tap (iOS/Android) */
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Prevent 300ms delay on tap for buttons and links */
+    a,
+    button,
+    [role="button"],
+    input,
+    select,
+    textarea,
+    label {
+        touch-action: manipulation;
+    }
+
+    /* iOS input zoom prevention - font-size must be >= 16px */
+    input,
+    select,
+    textarea {
+        font-size: max(16px, 1em);
+    }
+
+    /* Override for small decorative inputs that should not be zoomed */
+    input[type="checkbox"],
+    input[type="radio"] {
+        font-size: inherit;
+    }
+
+    /* Minimum touch target size for interactive elements */
+    button,
+    [role="button"] {
+        min-height: 44px;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    .font-display {
+        font-family:
+            "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
+        font-optical-sizing: auto;
+        letter-spacing: -0.01em;
+    }
+
+    ::selection {
+        background: hsl(var(--soft-teal));
+        color: hsl(var(--primary));
+    }
+
+    /* Prevent content from going under device notch/home indicator */
+    #root {
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/* UTILITIES                                                                  */
+/* -------------------------------------------------------------------------- */
+
+@layer utilities {
+    .text-secondary {
+        color: hsl(var(--secondary-text));
+    }
+    .text-muted {
+        color: hsl(var(--muted-foreground));
+    }
+    .bg-soft-teal {
+        background-color: hsl(var(--soft-teal));
+    }
+    .text-navy {
+        color: hsl(var(--navy));
+    }
+    .bg-navy {
+        background-color: hsl(var(--navy));
+    }
+    .text-verified {
+        color: hsl(var(--verified));
+    }
+    .bg-verified\/10 {
+        background-color: hsl(var(--verified) / 0.1);
+    }
+    .text-pending {
+        color: hsl(var(--pending));
+    }
+    .bg-pending\/10 {
+        background-color: hsl(var(--pending) / 0.1);
+    }
+    .text-emergency {
+        color: hsl(var(--emergency));
+    }
+    .bg-emergency\/10 {
+        background-color: hsl(var(--emergency) / 0.1);
+    }
+    .text-info {
+        color: hsl(var(--info));
+    }
+    .bg-info\/10 {
+        background-color: hsl(var(--info) / 0.1);
+    }
+    .text-resolved {
+        color: hsl(var(--resolved));
+    }
+    .bg-resolved\/10 {
+        background-color: hsl(var(--resolved) / 0.1);
+    }
+    .divider {
+        border-color: hsl(var(--divider));
+    }
+    .shadow-soft {
+        box-shadow:
+            0 1px 2px hsl(var(--foreground) / 0.04),
+            0 8px 24px -12px hsl(var(--foreground) / 0.08);
+    }
+    .shadow-hover {
+        box-shadow:
+            0 2px 4px hsl(var(--foreground) / 0.05),
+            0 12px 32px -12px hsl(var(--foreground) / 0.12);
+    }
+    .grain {
+        background-image: radial-gradient(
+            hsl(var(--foreground) / 0.025) 1px,
+            transparent 1px
+        );
+        background-size: 4px 4px;
+    }
+
+    /* Safe-area helpers */
+    /* Padding that accounts for device notch / home indicator */
+    .pt-safe {
+        padding-top: env(safe-area-inset-top);
+    }
+    .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+    .pl-safe {
+        padding-left: env(safe-area-inset-left);
+    }
+    .pr-safe {
+        padding-right: env(safe-area-inset-right);
+    }
+
+    /* Full dynamic viewport height */
+    .h-dvh {
+        height: 100dvh;
+    }
+    .min-h-dvh {
+        min-height: 100dvh;
+    }
+
+    /* Scrollable area on mobile */
+    .scroll-touch {
+        -webkit-overflow-scrolling: touch;
+        overflow-y: auto;
+    }
+
+    /* No min-height override for icon-only buttons */
+    .no-min-touch {
+        min-height: unset !important;
+    }
+}
+
+/* Subtle page fade */
+.page-enter {
+    animation: page-fade 260ms ease-out;
+}
+@keyframes page-fade {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Bottom sheet slide-up animation */
+@keyframes sheet-up {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+.sheet-enter {
+    animation: sheet-up 300ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* Emergent visual editor pass-through */
+@layer base {
+    [data-debug-wrapper="true"] {
+        display: contents !important;
+    }
+}
