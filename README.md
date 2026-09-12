@@ -70,7 +70,7 @@ The platform follows a strict **escalation hierarchy**: Citizen → Level 1 Resp
 | **Frontend** | React 19 · Tailwind CSS · shadcn/ui · React Router 7 · TanStack Query |
 | **Backend API** | Node.js · TypeScript · Express 5 · Zod validation |
 | **Database** | Supabase (PostgreSQL) with Row-Level Security |
-| **Auth** | Supabase Auth (Email/Password, OTP, Google OAuth) |
+| **Auth** | Supabase Auth (Email/Password, Google OAuth) |
 | **Storage** | Supabase Storage (private buckets with RLS) |
 | **Proxy** | Python FastAPI reverse proxy (async httpx) |
 | **PWA** | Service Worker · Web App Manifest · Offline caching |

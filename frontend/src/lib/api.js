@@ -51,8 +51,6 @@ export const api = {
             request("/api/auth/login", { method: "POST", body: { email, password } }),
         register: (data) =>
             request("/api/auth/register", { method: "POST", body: data }),
-        verifyOtp: (email, token) =>
-            request("/api/auth/verify-otp", { method: "POST", body: { email, token } }),
     },
 
     profile: () => request("/api/profile"),

@@ -64,13 +64,11 @@ router.get('/docs', (_req, res) =>
 <h2>Auth</h2>
 <ul>
 <li><code>POST /api/auth/register</code> citizen registration</li>
-<li><code>POST /api/auth/verify-otp</code> email OTP verification</li>
 <li><code>POST /api/auth/login</code> email + password login</li>
 <li><code>POST /api/auth/logout</code> end session</li>
 <li><code>POST /api/auth/refresh</code> refresh access token</li>
 <li><code>POST /api/auth/password-reset</code> send reset email</li>
 <li><code>POST /api/auth/password-reset/confirm</code> confirm new password</li>
-<li><code>POST /api/auth/resend-verification</code> resend email verification</li>
 <li><code>GET /api/auth/google</code> Google OAuth redirect</li>
 </ul>
 <h2>Cases</h2>
@@ -260,29 +258,10 @@ router.post('/auth/register', async (req, res) => {
   }
 
   const message = input.data.email
-    ? 'Registration successful. Please check your email for the verification OTP.'
+    ? 'Registration successful. You can now sign in with your email.'
     : 'Registration successful. You can now sign in with your mobile number.';
 
   res.status(201).json({ id: data.user.id, message });
-});
-
-router.post('/auth/verify-otp', async (req, res) => {
-  const input = z
-    .object({ email: z.string().email(), token: z.string().min(4).max(8) })
-    .safeParse(req.body);
-  if (!input.success) return res.status(400).json({ error: 'Valid email and OTP token are required' });
-
-  const { data, error } = await authClient.auth.verifyOtp({
-    email: input.data.email,
-    token: input.data.token,
-    type: 'signup',
-  });
-  if (error) return res.status(400).json({ error: sanitizeError(error) });
-
-  res.json({
-    message: 'Email verified successfully. You can now log in.',
-    session: data.session,
-  });
 });
 
 router.post('/auth/login', async (req, res) => {
@@ -378,22 +357,6 @@ router.post('/auth/password-reset/confirm', async (req, res) => {
   if (error) return res.status(400).json({ error: sanitizeError(error) });
 
   res.json({ message: 'Password updated successfully. You can now sign in with your new password.' });
-});
-
-// ============================================================
-// AUTH — RESEND EMAIL VERIFICATION
-// ============================================================
-
-router.post('/auth/resend-verification', async (req, res) => {
-  const input = z
-    .object({ email: z.string().email() })
-    .safeParse(req.body);
-  if (!input.success) return res.status(400).json({ error: 'Valid email is required' });
-
-  const { error } = await authClient.auth.resend({ type: 'signup', email: input.data.email });
-  if (error) return res.status(400).json({ error: sanitizeError(error) });
-
-  res.json({ message: 'Verification email resent. Please check your inbox.' });
 });
 
 // ============================================================

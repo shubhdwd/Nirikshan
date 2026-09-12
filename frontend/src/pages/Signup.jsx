@@ -144,14 +144,8 @@ export default function Signup() {
                 consent_reporting: form.consentReporting,
                 l1_opt_in: form.l1OptIn === "yes",
             });
-            const redirectEmail = form.email.trim();
-            if (redirectEmail) {
-                toast.success("Account created! OTP sent to your email.");
-                navigate(`/verify-otp?email=${encodeURIComponent(redirectEmail)}`);
-            } else {
-                toast.success("Account created! You can now sign in.");
-                navigate("/login");
-            }
+            toast.success("Account created! You can now sign in.");
+            navigate("/login");
         } catch (err) {
             toast.error(err.message || "Registration failed.");
         } finally {
@@ -240,7 +234,7 @@ export default function Signup() {
                                     className="w-full rounded-xl border border-border bg-background px-3.5 py-2.5 text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all"
                                 />
                                 <p className="text-[11px] text-muted">
-                                    Used for OTP verification and case updates.
+                                    Used for case updates and account recovery.
                                 </p>
                             </div>
 

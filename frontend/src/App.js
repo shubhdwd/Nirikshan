@@ -18,7 +18,6 @@ import Notifications from "@/pages/Notifications";
 import SafetyGuidelines from "@/pages/SafetyGuidelines";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
-import VerifyOTP from "@/pages/VerifyOTP";
 
 // Level 1
 import L1Home from "@/pages/l1/L1Home";
@@ -67,7 +66,6 @@ function App() {
                                 <Route path="/safety" element={<SafetyGuidelines />} />
                                 <Route path="/login" element={<Login />} />
                                 <Route path="/signup" element={<Signup />} />
-                                <Route path="/verify-otp" element={<VerifyOTP />} />
 
                                 {/* ========== CITIZEN ROUTES (auth required) ========== */}
                                 <Route path="/report" element={

@@ -59,7 +59,6 @@ const authLimiter = rateLimit({
 });
 
 app.use('/api/auth/login', authLimiter);
-app.use('/api/auth/verify-otp', authLimiter);
 app.use('/api/auth/password-reset', authLimiter);
 app.use('/api/auth/register', authLimiter);
 
